@@ -8,6 +8,7 @@ import com.example.shoppinglistclarch.R
 
 class MainActivity : AppCompatActivity() {
 
+    private var count = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,7 +16,11 @@ class MainActivity : AppCompatActivity() {
         val viewModel: MainViewModel by viewModels()
         viewModel.shopList.observe(this) {
             Log.d("MainActivity", it.toString())
+            if (count == 0) {
+                count++
+                val item = it[0]
+                viewModel.deleteShopItem(item)
+            }
         }
-        viewModel.getShopList()
     }
 }
